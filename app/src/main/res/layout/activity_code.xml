@@ -76,6 +76,7 @@
         >
 
         <EditText
+            android:inputType="number"
             android:id="@+id/et_code1"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
@@ -87,6 +88,7 @@
             />
 
         <EditText
+            android:inputType="number"
             android:id="@+id/et_code2"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
@@ -97,6 +99,7 @@
             />
 
         <EditText
+            android:inputType="number"
             android:id="@+id/et_code3"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
@@ -107,6 +110,7 @@
             />
 
         <EditText
+            android:inputType="number"
             android:id="@+id/et_code4"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"

@@ -71,7 +71,7 @@ public class CodeActivity extends BaseActivity {
         Intent intent=getIntent();
         phone=intent.getStringExtra("phone");
 
-//        getCode(phone);
+        getCode(phone);
     }
 
     @Override

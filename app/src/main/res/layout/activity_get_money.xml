@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.GetMoneyActivity">
+    <include layout="@layout/layout_back_top_bar"></include>
+    <LinearLayout
+        android:paddingRight="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+<TextView
+    android:textSize="@dimen/sp_12"
+    android:textColor="@color/colorBlack"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="支付宝账号（需与登录手机号一致）"
+    />
+        <EditText
+            android:id="@+id/et_count"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textSize="@dimen/sp_14"
+            android:paddingLeft="@dimen/dp_15"
+            android:hint="请输入支付宝账号"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_10"
+            android:background="@drawable/shape_stroke_gray_corner_15"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收款人姓名"
+            />
+        <EditText
+            android:id="@+id/et_name"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textSize="@dimen/sp_14"
+            android:paddingLeft="@dimen/dp_15"
+            android:hint="请输入收款人姓名"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_10"
+            android:background="@drawable/shape_stroke_gray_corner_15"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:textSize="@dimen/sp_12"
+            android:textColor="@color/colorBlack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="提现金额（10的整数倍）"
+            />
+        <EditText
+            android:id="@+id/et_money"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textSize="@dimen/sp_14"
+            android:paddingLeft="@dimen/dp_15"
+            android:hint="请输入提现金额"
+            android:paddingBottom="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_10"
+            android:background="@drawable/shape_stroke_gray_corner_15"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:paddingBottom="@dimen/dp_40"
+            android:textColor="@color/colorBlueDark"
+            android:textSize="@dimen/sp_11"
+            android:text="需要10000积分"
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_submit"
+            android:gravity="center"
+            android:text="提交申请"
+            android:background="@mipmap/btn_yellow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+</LinearLayout>

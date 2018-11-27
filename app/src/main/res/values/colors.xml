@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorTopBar">#FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhiteTrans">#42FFFFFF</color>
+    <color name="colorCoffee">#996533</color>
+
+    <color name="colorFontLight">#333333</color>
+    <color name="colorFontDark">#7E7E7E</color>
+
+    <color name="colorTransparentBg">#66000000</color>
+
+    <color name="colorLine">#EEEEEE</color>
+    <color name="colorTiffanyGreen">#79DECB</color>
+
+    <color name="colorPinkLight">#FFa4bb</color>
+    <color name="colorPinkTranslucent">#A0FF7693</color>
+    <color name="colorPink">#FF7693</color>
+    <color name="colorDeepPink">#FF4081</color>
+    <color name="colorGray">#DCDCDC</color>
+    <color name="colorGray2">#C0C0C0</color>
+    <color name="colorGray3">#F4F4F4</color>
+    <color name="colorGray4">#F3F3F3</color>
+    <color name="colorGray5">#F5F7F6</color>
+    <color name="colorGray6">#AAAAAA</color>
+    <color name="colorGray7">#DDDDDD</color>
+    <color name="colorGray8">#80CCCCCC</color>
+    <color name="colorGray9">#4D4D4D</color>
+    <color name="colorGray10">#A6A6A6</color>
+    <color name="colorBack">#EEF3FA</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGrayLine">#EEEEEE</color>
+    <color name="colorGrayBg">#787878</color>
+    <color name="colorGrayBgCar">#FAFAFA</color>
+    <color name="colorGrayText">#9B9B9B</color>
+    <color name="colorYellow">#F5B664</color>
+    <color name="colorYellow2">#e3863B</color>
+    <color name="colorHint">#959595</color>
+
+    <!--find-->
+    <color name="colorTitle">#505050</color>
+    <color name="colorTitleSecond">#7c7c7c</color>
+    <color name="colorTransparentWhite">#ACFFFFFF</color>
+
+    <color name="colorBlueLight">#95cfe5</color>
+    <color name="colorBlueBtn1">#75e5b2</color>
+    <color name="colorBlueBtn2">#7cd8de</color>
+    <color name="colorGrayLineD">#e5e5e5</color>
+    <color name="colorBlueDark">#7F88BD</color>
+</resources>

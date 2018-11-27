@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:orientation="vertical"
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+
+        android:gravity="center_vertical"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:paddingTop="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingBottom="@dimen/dp_10"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:paddingLeft="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:drawablePadding="@dimen/dp_5"
+                    android:text="蜂胶软胶囊胶原蛋白粉"
+
+                    android:id="@+id/tv_item_car_product_title"
+                    android:layout_width="wrap_content"
+                    android:maxLines="1"
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/colorTitle"
+                    android:layout_height="wrap_content"/>
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+                <TextView
+                    android:id="@+id/tv_item_car_product_status"
+                    android:layout_width="wrap_content"
+                    android:gravity="right"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="@dimen/sp_14"
+                    android:textColor="@color/colorDeepPink"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_10"
+                android:paddingTop="@dimen/dp_10"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:scaleType="centerCrop"
+                    android:id="@+id/iv_item_car_product_img"
+                    android:layout_width="@dimen/dp_84"
+                    android:layout_height="@dimen/dp_84"/>
+                <LinearLayout
+                    android:paddingLeft="@dimen/dp_15"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_item_product_spec"
+                                android:textColor="@color/colorGrayText"
+                                android:textSize="@dimen/sp_11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="规格：0粒/瓶"
+                                />
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/dp_24">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/signRMB"
+                                    android:textSize="@dimen/sp_11"
+                                    android:textColor="@color/colorPink"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_item_car_product_price"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingLeft="@dimen/dp_2"
+                                    android:text="0"
+                                    android:textColor="@color/colorPink"
+                                    android:textSize="@dimen/sp_17"
+                                    />
+                                <TextView
+                                    android:id="@+id/tv_item_product_origin_price"
+                                    android:textColor="@color/colorGrayText"
+                                    android:paddingLeft="@dimen/dp_10"
+                                    android:paddingRight="@dimen/dp_10"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="0"
+                                    android:textSize="@dimen/sp_11"
+                                    />
+
+
+                            </LinearLayout>
+                            <TextView
+
+                                android:id="@+id/tv_item_product_brand"
+                                android:textColor="@color/colorGrayText"
+                                android:textSize="@dimen/sp_11"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="出售"
+                                />
+
+                        </LinearLayout>
+                        <TextView
+                            android:textColor="@color/colorDeepPink"
+                            android:textSize="@dimen/sp_11"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="x"
+                            />
+                        <TextView
+                            android:textColor="@color/colorDeepPink"
+                            android:textSize="@dimen/sp_14"
+                            android:id="@+id/tv_item_car_product_num"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            />
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        style="@style/HorizontalLine"
+        />
+</LinearLayout>

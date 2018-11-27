@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:background="@color/colorWhite"
+    android:gravity="center_horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.UserCenterActivity">
+   <include
+       layout="@layout/layout_back_top_bar"
+       ></include>
+    <View
+      style="@style/HorizontalLine"
+      ></View>
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_10"/>
+    <ImageView
+
+        android:src="@mipmap/center"
+        android:id="@+id/iv_avatar"
+
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"/>
+    <TextView
+        android:id="@+id/tv_nicename"
+        android:drawablePadding="@dimen/dp_5"
+        android:drawableRight="@mipmap/edit"
+        android:textColor="@color/colorBlack"
+        android:text="用户昵称"
+        android:paddingTop="@dimen/dp_10"
+        android:textSize="@dimen/sp_18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/tv_id"
+        android:paddingBottom="@dimen/dp_10"
+        android:textColor="@color/colorFontDark"
+        android:text="ID:0001"
+        android:paddingTop="@dimen/dp_5"
+        android:textSize="@dimen/sp_12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/ll_tixian"
+        android:gravity="center_vertical"
+        android:background="@mipmap/tixian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Space
+            android:layout_weight="2"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="8"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_money"
+                android:textColor="@color/colorFontDark"
+                android:textSize="@dimen/sp_19"
+                android:text="100.00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:textColor="@color/colorFontDark"
+                android:textSize="@dimen/sp_10"
+                android:text="当前余额（可提现）"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <TextView
+            android:textSize="@dimen/sp_11"
+            android:textColor="@color/colorYellow"
+            android:gravity="center"
+            android:text="立即提现"
+            android:background="@mipmap/btn_white"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <Space
+            android:layout_weight="1"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+
+        android:id="@+id/ll_cash_detail"
+        android:paddingTop="@dimen/dp_25"
+        android:paddingBottom="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">L
+        <ImageView
+            android:src="@mipmap/cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:paddingLeft="@dimen/dp_10"
+            android:text="收支明细"
+            android:layout_weight="1"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/next"
+            />
+
+
+
+    </LinearLayout>
+    <View
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        style="@style/HorizontalLine"
+        ></View>
+    <LinearLayout
+        android:id="@+id/ll_order_record"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">L
+        <ImageView
+            android:src="@mipmap/order_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:paddingLeft="@dimen/dp_10"
+            android:text="任务记录"
+            android:layout_weight="1"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/next"
+            />
+
+
+
+    </LinearLayout>
+    <View
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        style="@style/HorizontalLine"
+        ></View>
+    <LinearLayout
+        android:id="@+id/ll_about_us"
+        android:paddingTop="@dimen/dp_10"
+        android:paddingBottom="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">L
+        <ImageView
+            android:src="@mipmap/about_us"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:paddingLeft="@dimen/dp_10"
+            android:text="关于我们"
+            android:layout_weight="1"
+            android:layout_width="@dimen/dp_0"
+            android:layout_height="wrap_content"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/next"
+            />
+
+
+
+    </LinearLayout>
+    <View
+        style="@style/HorizontalLine10"
+        ></View>
+    <TextView
+        android:id="@+id/tv_exit"
+        android:gravity="center"
+        android:paddingBottom="@dimen/dp_10"
+        android:paddingTop="@dimen/dp_10"
+        android:text="退出登录"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <View
+        android:background="@color/colorGray5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0"
+        android:layout_weight="1"
+        ></View>
+
+
+</LinearLayout>

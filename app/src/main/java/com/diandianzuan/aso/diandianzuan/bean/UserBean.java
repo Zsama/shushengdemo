@@ -28,11 +28,42 @@ public class UserBean implements Serializable {
     public static final int TYPE_GET_INTEGER_SECOND=4;//获得积分
     public static final int TYPE_DEDUCT_INTEGER=6;//扣除积分
 
-    private String mEmoney="0";
+    private String mEmoney="0";   //余额
+    private String mFreezmoney="0";//冻结金额
+    private String mFreemoney="0";//可提现金额
+
+    private String mAliName="";
+
+
+
     private String mBank="";
     private String mBank_card="";
     private String mRealName="";
     private String mPersonNumber="";
+
+    public String getmAliName() {
+        return mAliName;
+    }
+
+    public void setmAliName(String mAliName) {
+        this.mAliName = mAliName;
+    }
+
+    public String getmFreemoney() {
+        return mFreemoney;
+    }
+
+    public void setmFreemoney(String mFreemoney) {
+        this.mFreemoney = mFreemoney;
+    }
+
+    public String getmFreezmoney() {
+        return mFreezmoney;
+    }
+
+    public void setmFreezmoney(String mFreezmoney) {
+        this.mFreezmoney = mFreezmoney;
+    }
 
     public String getBank() {
         return mBank;
@@ -96,7 +127,7 @@ public class UserBean implements Serializable {
     private int mSignFaceScore;//签到颜值
 
     /**
-     * 性别 1:女 2：男 3:保密
+     * 性别 1:男 2：女 3:保密
      */
     private int mSex;
     /**

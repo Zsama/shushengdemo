@@ -22,7 +22,10 @@ public interface RetrofitRequestInterface {
     @FormUrlEncoded
     @POST(RequestManager.mInterfacePrefix+"GetCode")
     Call<String> getCode(@FieldMap Map<String, String> params);
-
+    /*我的*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"GetUserinfo")
+    Call<String> GetUserinfo(@FieldMap Map<String, String> params);
 
 
 
@@ -41,10 +44,10 @@ public interface RetrofitRequestInterface {
     @POST("selectInfo/getAboutUs.do")
     Call<String> getAboutUs(@Field("type") int type);
 
-    @FormUrlEncoded   //请求和响应格式注解
-    @POST("index/firstTimeLookMe.do")
-        //请求方法注解
-    Call<String> getUserInfo(@FieldMap Map<String, String> params);
+//    @FormUrlEncoded   //请求和响应格式注解
+//    @POST("index/firstTimeLookMe.do")
+//        //请求方法注解
+//    Call<String> getUserInfo(@FieldMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST("index.php?g=Admin&m=app2&a=Mine")
@@ -183,10 +186,7 @@ public interface RetrofitRequestInterface {
     @FormUrlEncoded
     @POST(RequestManager.mInterfacePrefix+"CancelOrder")
     Call<String> cancelOrder(@FieldMap Map<String, String> params);
-    /*我的*/
-    @FormUrlEncoded
-    @POST(RequestManager.mInterfacePrefix+"Mine")
-    Call<String> mine(@FieldMap Map<String, String> params);
+
     /*我的收藏*/
     @FormUrlEncoded
     @POST(RequestManager.mInterfacePrefix+"MyCollection")

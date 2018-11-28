@@ -58,6 +58,7 @@
 
 
 <TextView
+    android:id="@+id/tv_start"
     android:gravity="center"
     android:layout_width="@dimen/dp_160"
     android:layout_height="@dimen/dp_30"

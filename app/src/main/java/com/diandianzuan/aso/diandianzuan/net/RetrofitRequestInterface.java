@@ -26,7 +26,10 @@ public interface RetrofitRequestInterface {
     @FormUrlEncoded
     @POST(RequestManager.mInterfacePrefix+"GetUserinfo")
     Call<String> GetUserinfo(@FieldMap Map<String, String> params);
-
+    /*任务列表*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"GetTestList")
+    Call<String> GetTestList(@FieldMap Map<String, String> params);
 
 
 

@@ -8,6 +8,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Base64;
@@ -33,9 +34,33 @@ import java.util.regex.Pattern;
  */
 public class CommonUtil {
 
+    /**
+     * 跳转到应用市场
+     *
+     * @param appPkg
+     *            ：上传到应用市场上app的包名,不是本项目的包名
+     * @param marketPkg
+     *            ：应用市场的包名
+     */
+    public static void jumpToMarket(Activity activity, String appPkg, String marketPkg) {
+        Uri uri = Uri.parse("market://details?id=" + appPkg);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (marketPkg != null) {// 如果没给市场的包名，则系统会弹出市场的列表让你进行选择。
+            intent.setPackage(marketPkg);
+        }
+        activity.startActivity(intent);
+    }
 
-
-
+    public static void jumpToMarketSearch(Activity activity, String keyword,String marketPkg) {
+        Uri uri = Uri.parse("market://search?q=pub:+" + keyword);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (marketPkg != null) {// 如果没给市场的包名，则系统会弹出市场的列表让你进行选择。
+            intent.setPackage(marketPkg);
+        }
+        activity.startActivity(intent);
+    }
     /**
      * 文本替换工具
      */

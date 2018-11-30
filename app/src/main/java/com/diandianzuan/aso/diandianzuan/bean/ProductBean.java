@@ -8,6 +8,8 @@ import java.util.List;
 public class ProductBean implements Serializable {
     private String mId;
     private String mName;
+    private String mbusiness_title;
+    private int mKucun;
     private double mPrice;
     private int mSharePoint;
     private String mPictureUrl;
@@ -16,6 +18,31 @@ public class ProductBean implements Serializable {
     private String mSpec;
     private String mOriginPrice;
     private String mSeller;
+    private String mKeywords;
+
+    public String getmKeywords() {
+        return mKeywords;
+    }
+
+    public void setmKeywords(String mKeywords) {
+        this.mKeywords = mKeywords;
+    }
+
+    public String getMbusiness_title() {
+        return mbusiness_title;
+    }
+
+    public void setMbusiness_title(String mbusiness_title) {
+        this.mbusiness_title = mbusiness_title;
+    }
+
+    public int getmKucun() {
+        return mKucun;
+    }
+
+    public void setmKucun(int mKucun) {
+        this.mKucun = mKucun;
+    }
 
     public String getSeller() {
         return mSeller;
@@ -114,23 +141,6 @@ public class ProductBean implements Serializable {
      */
     private int mChildOrderStatus;
 
-    public static final int STATUS_COMPLETED=1;
-
-    public static final int STATUS_USED=2;
-
-    public static final int STATUS_WAIT_PAY=3;
-
-    public static final int STATUS_IN_REFUND=4;
-
-    public static final int STATUS_REFUND_SUCCESS=5;
-
-    public static final int STATUS_REFUND_FAIL=6;
-
-    public static final int STATUS_WAIT_USE=7;
-
-    public static final int STATUS_CANCELED=8;
-
-    public static final int STATUS_WAIT_EVALUATE=9;
 
     /**
      * 子订单Id

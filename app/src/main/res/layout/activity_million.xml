@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/ll_main"
+    android:background="@mipmap/bg_red"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -10,13 +12,12 @@
     <include layout="@layout/layout_back_top_bar"></include>
         <LinearLayout
             android:paddingBottom="@dimen/dp_15"
-            android:paddingRight="@dimen/dp_15"
-            android:paddingLeft="@dimen/dp_15"
-            android:background="@mipmap/background_white_shadow"
+
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
+                android:paddingLeft="@dimen/dp_10"
                 android:paddingBottom="@dimen/dp_10"
                 android:paddingTop="@dimen/dp_10"
                 android:textColor="@color/colorWhite"
@@ -25,7 +26,7 @@
                 android:layout_height="wrap_content" />
             <LinearLayout
                 android:orientation="vertical"
-                android:background="@color/colorWhite"
+                android:background="@mipmap/background_white_shadow"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 <TextView
@@ -35,7 +36,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
+                <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                    android:id="@+id/trl_activity_million"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
 
+                    >
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_activity_million"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        />
+
+                </com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>
 
 
             </LinearLayout>

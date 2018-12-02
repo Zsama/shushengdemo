@@ -4,11 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.diandianzuan.aso.diandianzuan.R;
 import com.diandianzuan.aso.diandianzuan.base.BaseActivity;
@@ -28,15 +27,17 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MissionAdvDetailActivity extends BaseActivity{
+public class MissionAdvDetailActivity extends BaseActivity {
+    public static final int REQUEST_CODE_IMAGE = 1;
+    public static final int REQUEST_CODE_CAMERA = 2;
+    public static final int REQUEST_CODE_CROP = 3;
 
+    public static final int PERMISSION_CODE_TAKE_PHOTO = 100;
 
     @BindView(R.id.ll_layout_back_top_bar_back)
     LinearLayout llLayoutBackTopBarBack;
@@ -54,15 +55,19 @@ public class MissionAdvDetailActivity extends BaseActivity{
     TextView mTvWords;
     @BindView(R.id.tv_mall_name)
     TextView mTvMallName;
+    @BindView(R.id.iv_camera)
+    ImageView ivCamera;
+    @BindView(R.id.ll_submit)
+    TextView llSubmit;
 
     private String mKeywords = "";
-    private String mId="";
-    private String bundled="";
+    private String mId = "";
+    private String bundled = "";
     private static final String TAG = "MissionAdvDetailActivity";
-    private boolean ifHavePkg=false;
-    private boolean ifHaveTime=false;
-    private String market_pkg_name="com.tencent.android.qqdownloader";
-    private String join_id="";
+    private boolean ifHavePkg = false;
+    private boolean ifHaveTime = false;
+    private String market_pkg_name = "com.tencent.android.qqdownloader";
+    private String join_id = "";
 
     @Override
     protected int getContentViewId() {
@@ -79,8 +84,8 @@ public class MissionAdvDetailActivity extends BaseActivity{
     public void initData() {
         Intent intent = getIntent();
         mKeywords = intent.getStringExtra("keywords");
-        mId=intent.getStringExtra("projectId");
-        mTvWords.setText("关键词："+mKeywords);
+        mId = intent.getStringExtra("projectId");
+        mTvWords.setText("关键词：" + mKeywords);
 
     }
 
@@ -106,20 +111,17 @@ public class MissionAdvDetailActivity extends BaseActivity{
     @OnClick(R.id.ll_goto)
     public void onLlGotoClicked() {
         try {
-            if(checkPackInfo(market_pkg_name)){
+            if (checkPackInfo(market_pkg_name)) {
                 CommonUtil.jumpToMarketSearch(mActivity, mKeywords, market_pkg_name);
-            }else {
-                ToastUtil.showShort(mActivity,"请先安装"+mTvMallName.getText().toString());
+            } else {
+                ToastUtil.showShort(mActivity, "请先安装" + mTvMallName.getText().toString());
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
     }
-
-
-
 
 
     /**
@@ -148,36 +150,36 @@ public class MissionAdvDetailActivity extends BaseActivity{
                             String info = res.getString("info");
                             if (code == 0) {
                                 JSONObject data = res.getJSONObject("data");
-                                bundled=data.getString("bundled");
-                                mTvPrice.setText("+"+data.getString("price")+"元");
+                                bundled = data.getString("bundled");
+                                mTvPrice.setText("+" + data.getString("price") + "元");
 
-                                JSONObject join=data.getJSONObject("join");
-                                join_id=join.getString("join_id");
-                                int platform2=data.getInt("platform2");
-                                switch (platform2){
+                                JSONObject join = data.getJSONObject("join");
+                                join_id = join.getString("join_id");
+                                int platform2 = data.getInt("platform2");
+                                switch (platform2) {
                                     case Constant.TX_MARKET:
                                         mTvMallName.setText("腾讯应用宝");
-                                        market_pkg_name="com.tencent.android.qqdownloader";
+                                        market_pkg_name = "com.tencent.android.qqdownloader";
                                         break;
                                     case Constant.MI_MARKET:
                                         mTvMallName.setText("小米应用商店");
-                                        market_pkg_name="com.xiaomi.market";
+                                        market_pkg_name = "com.xiaomi.market";
                                         break;
                                     case Constant.OPPO_MARKET:
                                         mTvMallName.setText("OPPO应用市场");
-                                        market_pkg_name="com.oppo.market";
+                                        market_pkg_name = "com.oppo.market";
                                         break;
                                     case Constant.HW_MARKET:
                                         mTvMallName.setText("华为应用市场");
-                                        market_pkg_name="com.huawei.appmarket";
+                                        market_pkg_name = "com.huawei.appmarket";
                                         break;
                                     case Constant.BAIDU_MARKET:
                                         mTvMallName.setText("百度手机助手");
-                                        market_pkg_name="com.baidu.appsearch";
+                                        market_pkg_name = "com.baidu.appsearch";
                                         break;
                                     case Constant.SANLIULING_MARKET:
                                         mTvMallName.setText("360手机助手");
-                                        market_pkg_name="com.qihoo.appstore";
+                                        market_pkg_name = "com.qihoo.appstore";
                                         break;
                                 }
                             }
@@ -200,10 +202,8 @@ public class MissionAdvDetailActivity extends BaseActivity{
                 });
 
 
-
-
-
     }
+
     /**
      * 快速任务审核
      */
@@ -227,7 +227,7 @@ public class MissionAdvDetailActivity extends BaseActivity{
                             JSONObject res = new JSONObject(response);
                             int code = res.getInt("code");
                             String info = res.getString("info");
-                            ToastUtil.showShort(mContext,info);
+                            ToastUtil.showShort(mContext, info);
                             if (code == 0) {
                                 finish();
 
@@ -250,9 +250,6 @@ public class MissionAdvDetailActivity extends BaseActivity{
                         }
                     }
                 });
-
-
-
 
 
     }
@@ -278,4 +275,26 @@ public class MissionAdvDetailActivity extends BaseActivity{
         }
         return packageInfo != null;
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.iv_camera)
+    public void onIvCameraClicked() {
+
+
+//        Intent intent = new Intent(mActivity, ImageGridActivity.class);
+//        startActivityForResult(intent, REQUEST_CODE_IMAGE);
+
+    }
+
+    @OnClick(R.id.ll_submit)
+    public void onLlSubmitClicked() {
+    }
+
+
 }

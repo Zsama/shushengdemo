@@ -34,6 +34,7 @@ import java.util.regex.Pattern;
  */
 public class CommonUtil {
 
+
     /**
      * 跳转到应用市场
      *

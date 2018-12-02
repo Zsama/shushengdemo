@@ -208,4 +208,7 @@ public class UserCenterActivity extends BaseActivity {
         tvNicename.setText(AccountManager.sUserBean.getNickName());
         tvId.setText(AccountManager.sUserBean.getId());
     }
+
+
+
 }

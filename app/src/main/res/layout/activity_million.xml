@@ -25,6 +25,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <LinearLayout
+                android:paddingRight="@dimen/dp_10"
+                android:paddingLeft="@dimen/dp_10"
                 android:orientation="vertical"
                 android:background="@mipmap/background_white_shadow"
                 android:layout_width="match_parent"
@@ -37,6 +39,7 @@
                     android:layout_height="wrap_content" />
 
                 <com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout
+                    android:paddingLeft="@dimen/dp_10"
                     android:id="@+id/trl_activity_million"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

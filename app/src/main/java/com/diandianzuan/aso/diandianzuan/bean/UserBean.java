@@ -31,6 +31,8 @@ public class UserBean implements Serializable {
     private String mEmoney="0";   //余额
     private String mFreezmoney="0";//冻结金额
     private String mFreemoney="0";//可提现金额
+    private String today_money="0";//今日收益
+    private String total_money="0";//累计收益
 
     private String mAliName="";
 
@@ -40,6 +42,22 @@ public class UserBean implements Serializable {
     private String mBank_card="";
     private String mRealName="";
     private String mPersonNumber="";
+
+    public String getToday_money() {
+        return today_money;
+    }
+
+    public void setToday_money(String today_money) {
+        this.today_money = today_money;
+    }
+
+    public String getTotal_money() {
+        return total_money;
+    }
+
+    public void setTotal_money(String total_money) {
+        this.total_money = total_money;
+    }
 
     public String getmAliName() {
         return mAliName;

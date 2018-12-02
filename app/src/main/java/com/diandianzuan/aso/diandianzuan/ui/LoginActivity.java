@@ -2,6 +2,8 @@ package com.diandianzuan.aso.diandianzuan.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,7 +35,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -44,15 +46,28 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void initEvent() {
 
+        mEtPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (mEtPhone.getText().toString().trim().length()>=11){
+                    mTvNext.setBackgroundResource(R.mipmap.btn_yellow);
+                }else {
+                    mTvNext.setBackgroundResource(R.mipmap.login_btn_gray);
+                }
+            }
+        });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @OnClick(R.id.iv_close)
     public void onMIvCloseClicked() {

@@ -76,6 +76,8 @@ public class CodeActivity extends BaseActivity {
 
     @Override
     public void initEvent() {
+        //bug
+        //重发验证码
         tvPhone.setText(phone);
         etCode1.addTextChangedListener(new TextWatcher() {
             @Override

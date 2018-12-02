@@ -34,7 +34,14 @@ public interface RetrofitRequestInterface {
     @FormUrlEncoded
     @POST(RequestManager.mInterfacePrefix+"GetTestDetail")
     Call<String> GetTestDetail(@FieldMap Map<String, String> params);
-
+    /*快速任务提交审核*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"FastTestSubmit")
+    Call<String> FastTestSubmit(@FieldMap Map<String, String> params);
+    /*我的订单*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"GetMyTestList")
+    Call<String> myOrder(@FieldMap Map<String, String> params);
 
 
 
@@ -181,10 +188,7 @@ public interface RetrofitRequestInterface {
     @FormUrlEncoded
     @POST(RequestManager.mInterfacePrefix+"SubmitOrder_package")
     Call<String> SubmitOrder_package(@FieldMap Map<String, String> params);
-    /*我的订单*/
-    @FormUrlEncoded
-    @POST(RequestManager.mInterfacePrefix+"MyOrder")
-    Call<String> myOrder(@FieldMap Map<String, String> params);
+
     /*订单详情(待结算、待发货、待收货、已完成)*/
     @FormUrlEncoded
     @POST(RequestManager.mInterfacePrefix+"OrderDetail")

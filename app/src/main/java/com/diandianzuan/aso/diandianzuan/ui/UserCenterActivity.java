@@ -127,6 +127,7 @@ public class UserCenterActivity extends BaseActivity {
 
     @OnClick(R.id.ll_order_record)
     public void onLlOrderRecordClicked() {
+        MissionRecordActivity.startMe(mActivity);
     }
 
     @OnClick(R.id.ll_about_us)
@@ -172,6 +173,8 @@ public class UserCenterActivity extends BaseActivity {
                                 AccountManager.sUserBean.setmFreemoney(data.getString("tixian_money"));
                                 AccountManager.sUserBean.setmAliName(data.getString("ali_login"));
                                 AccountManager.sUserBean.setRealName(data.getString("real_name"));
+                                AccountManager.sUserBean.setToday_money(data.getString("today_money"));
+                                AccountManager.sUserBean.setTotal_money(data.getString("total_money"));
 
 
 

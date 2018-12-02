@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,7 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MissionDetailActivity extends BaseActivity {
+public class MissionAdvDetailActivity extends BaseActivity{
 
 
     @BindView(R.id.ll_layout_back_top_bar_back)
@@ -53,14 +54,11 @@ public class MissionDetailActivity extends BaseActivity {
     TextView mTvWords;
     @BindView(R.id.tv_mall_name)
     TextView mTvMallName;
-    @BindView(R.id.tv_open)
-    TextView mTvOpen;
-    @BindView(R.id.tv_get)
-    TextView mTvGet;
+
     private String mKeywords = "";
     private String mId="";
     private String bundled="";
-    private static final String TAG = "MissionDetailActivity";
+    private static final String TAG = "MissionAdvDetailActivity";
     private boolean ifHavePkg=false;
     private boolean ifHaveTime=false;
     private String market_pkg_name="com.tencent.android.qqdownloader";
@@ -68,7 +66,7 @@ public class MissionDetailActivity extends BaseActivity {
 
     @Override
     protected int getContentViewId() {
-        return R.layout.activity_mission_detail;
+        return R.layout.activity_mission_adv_detail;
     }
 
     @Override
@@ -92,7 +90,7 @@ public class MissionDetailActivity extends BaseActivity {
     }
 
     public static void startMe(Activity mCtx, String projectId, int type, String keywords) {
-        Intent mIntent = new Intent(mCtx, MissionDetailActivity.class);
+        Intent mIntent = new Intent(mCtx, MissionAdvDetailActivity.class);
         mIntent.putExtra("projectId", projectId);
         mIntent.putExtra("type", type);
         mIntent.putExtra("keywords", keywords);
@@ -111,7 +109,7 @@ public class MissionDetailActivity extends BaseActivity {
             if(checkPackInfo(market_pkg_name)){
                 CommonUtil.jumpToMarketSearch(mActivity, mKeywords, market_pkg_name);
             }else {
-             ToastUtil.showShort(mActivity,"请先安装"+mTvMallName.getText().toString());
+                ToastUtil.showShort(mActivity,"请先安装"+mTvMallName.getText().toString());
             }
 
         }catch (Exception e){
@@ -122,48 +120,6 @@ public class MissionDetailActivity extends BaseActivity {
 
 
 
-    @OnClick(R.id.tv_open)
-    public void onMTvOpenClicked() {
-
-        if (ifHavePkg){
-            PackageManager packageManager = getPackageManager();
-            if (checkPackInfo(bundled)) {
-                Intent intent = packageManager.getLaunchIntentForPackage(bundled);
-                startActivity(intent);
-
-
-                Timer timer = new Timer();
-                timer.schedule(mTimerTask, Constant.DEMO_TIME);
-            } else {
-                Toast.makeText(mActivity, "没有安装" + bundled, 1).show();
-            }
-
-        }
-
-    }
-
-    @OnClick(R.id.tv_get)
-    public void onMTvGetClicked() {
-        if (ifHaveTime){
-            FastTestSubmit();
-        }
-    }
-
-    private TimerTask mTimerTask = new TimerTask() {
-        @Override
-        public void run() {
-          ifHaveTime=true;
-          runOnUiThread(new Runnable() {
-              @Override
-              public void run() {
-                  refreshView();
-              }
-          });
-
-
-
-        }
-    };
 
 
     /**
@@ -273,7 +229,7 @@ public class MissionDetailActivity extends BaseActivity {
                             String info = res.getString("info");
                             ToastUtil.showShort(mContext,info);
                             if (code == 0) {
-                               finish();
+                                finish();
 
 
                             }
@@ -300,39 +256,11 @@ public class MissionDetailActivity extends BaseActivity {
 
 
     }
-    private void refreshView(){
-        if ( ifHavePkg){
-            mTvOpen.setBackgroundResource(R.mipmap.download_btn);
-            mTvOpen.setTextColor(getResources().getColor(R.color.colorBlack));
 
-        }else {
-            mTvOpen.setBackgroundResource(R.mipmap.btn_gray);
-            mTvOpen.setTextColor(getResources().getColor(R.color.colorWhite));
-
-        }
-
-
-
-        if (ifHaveTime){
-            mTvGet.setBackgroundResource(R.mipmap.download_btn);
-            mTvGet.setTextColor(getResources().getColor(R.color.colorBlack));
-
-        }else {
-            mTvGet.setBackgroundResource(R.mipmap.btn_gray);
-            mTvGet.setTextColor(getResources().getColor(R.color.colorWhite));
-
-        }
-    }
     @Override
     protected void onResume() {
         super.onResume();
-        if (!bundled.equals("")){
-            ifHavePkg=checkPackInfo(bundled);
-            refreshView();
 
-
-
-        }
     }
 
     /**

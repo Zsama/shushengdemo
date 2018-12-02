@@ -16,6 +16,7 @@ import com.diandianzuan.aso.diandianzuan.adapter.recycler.RecyclerCommonAdapter;
 import com.diandianzuan.aso.diandianzuan.adapter.recycler.base.ViewHolder;
 import com.diandianzuan.aso.diandianzuan.base.BaseActivity;
 import com.diandianzuan.aso.diandianzuan.bean.ProductBean;
+import com.diandianzuan.aso.diandianzuan.global.Constant;
 import com.diandianzuan.aso.diandianzuan.manager.AccountManager;
 import com.diandianzuan.aso.diandianzuan.manager.RequestManager;
 import com.diandianzuan.aso.diandianzuan.net.RetrofitCallBack;
@@ -53,6 +54,8 @@ public class MillionActivity extends BaseActivity {
     TwinklingRefreshLayout trlActivityMillion;
     @BindView(R.id.ll_main)
     LinearLayout llMain;
+    @BindView(R.id.tv_describe_top)
+    TextView tvDescribeTop;
 
     private int mType = 0;//0快速 1高级
 
@@ -71,14 +74,20 @@ public class MillionActivity extends BaseActivity {
     @Override
     public void initView() {
         ButterKnife.bind(this);
+
     }
 
     @Override
     public void initData() {
         Intent intent = getIntent();
         mType = intent.getIntExtra("type", 0);
-        if (mType==1){
+        if (mType == 1) {
             llMain.setBackgroundResource(R.mipmap.bg_blue);
+            tvLayoutBackTopBarTitle.setText("高级任务");
+            tvDescribeTop.setText("①按要求完成-②截图审核-③奖励到账");
+        } else {
+            tvLayoutBackTopBarTitle.setText("快速任务");
+            tvDescribeTop.setText("①下载应用-②试玩3分钟-③领取奖励");
         }
 
     }
@@ -88,6 +97,15 @@ public class MillionActivity extends BaseActivity {
         getList();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            getList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 获取任务列表
@@ -99,7 +117,7 @@ public class MillionActivity extends BaseActivity {
 
         }
         map.put("page", "1");
-        map.put("type", "0");
+        map.put("type", mType + "");
         map.put("platform", "2");
         LogUtil.e(TAG, map.toString());
         RequestManager.mRetrofitManager
@@ -126,6 +144,8 @@ public class MillionActivity extends BaseActivity {
                                     productBean.setmKeywords(object.getString("keywords"));
                                     productBean.setmKucun(object.getInt("count"));
                                     productBean.setPictureUrl(object.getString("image"));
+                                    productBean.setPrice(object.getDouble("price"));
+                                    productBean.setmMarketType(object.getInt("platform2"));
                                     mDataList.add(productBean);
 
                                 }
@@ -163,15 +183,51 @@ public class MillionActivity extends BaseActivity {
 
 
                 final ImageView pictureIV = holder.getView(R.id.iv_item_star_main_product_picture);
+                final ImageView iv_mall_icon = holder.getView(R.id.iv_mall_icon);
 
                 Glide.with(mActivity).load(productBean.getPictureUrl()).asBitmap().placeholder(R.mipmap.logo).centerCrop().into(pictureIV);
 
                 holder.setText(R.id.tv_title, productBean.getmKeywords());
+                holder.setText(R.id.tv_describe, "剩余" + productBean.getmKucun() + "份");
+                holder.setText(R.id.tv_price, productBean.getPrice() + "");
+                int platform2 = productBean.getmMarketType();
+
+                switch (platform2) {
+                    case Constant.TX_MARKET:
+                        holder.setText(R.id.tv_mall, "腾讯应用宝");
+                        iv_mall_icon.setImageResource(R.mipmap.tx);
+                        break;
+                    case Constant.MI_MARKET:
+                        holder.setText(R.id.tv_mall, "小米应用商店");
+                        iv_mall_icon.setImageResource(R.mipmap.mi);
+                        break;
+                    case Constant.OPPO_MARKET:
+                        holder.setText(R.id.tv_mall, "OPPO应用市场");
+                        iv_mall_icon.setImageResource(R.mipmap.oppo);
+                        break;
+                    case Constant.HW_MARKET:
+                        holder.setText(R.id.tv_mall, "华为应用市场");
+                        iv_mall_icon.setImageResource(R.mipmap.huawei);
+                        break;
+                    case Constant.BAIDU_MARKET:
+                        holder.setText(R.id.tv_mall, "百度手机助手");
+                        iv_mall_icon.setImageResource(R.mipmap.baidu);
+                        break;
+                    case Constant.SANLIULING_MARKET:
+                        holder.setText(R.id.tv_mall, "360手机助手");
+                        iv_mall_icon.setImageResource(R.mipmap.sanliuling);
+                        break;
+                }
+
                 holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (mType==0){
+                            MissionDetailActivity.startMe(mActivity, productBean.getId(), mType, productBean.getmKeywords());
+                        }else {
+                            MissionAdvDetailActivity.startMe(mActivity, productBean.getId(), mType, productBean.getmKeywords());
+                        }
 
-                        MissionDetailActivity.startMe(mActivity, productBean.getId(), mType,productBean.getmKeywords());
 
                     }
                 });

@@ -54,7 +54,11 @@ public class CommonUtil {
     }
 
     public static void jumpToMarketSearch(Activity activity, String keyword,String marketPkg) {
+
         Uri uri = Uri.parse("market://search?q=pub:+" + keyword);
+        if (marketPkg.equals("com.xiaomi.market")){
+            uri = Uri.parse("market://search?q=" + keyword);
+        }
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         if (marketPkg != null) {// 如果没给市场的包名，则系统会弹出市场的列表让你进行选择。

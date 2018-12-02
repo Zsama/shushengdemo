@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingTranslation">
+
+
+
+    <string-array name="order_category">
+        <item>全部</item>
+        <item>已接单</item>
+        <item>审核中</item>
+        <item>已发奖</item>
+        <item>已关闭</item>
+    </string-array>
+
+</resources>

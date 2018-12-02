@@ -12,6 +12,7 @@ public class ProductBean implements Serializable {
     private int mKucun;
     private double mPrice;
     private int mSharePoint;
+    private int mMarketType;
     private String mPictureUrl;
     private String mProductDetail;
     private String mInstitutionId;
@@ -19,6 +20,14 @@ public class ProductBean implements Serializable {
     private String mOriginPrice;
     private String mSeller;
     private String mKeywords;
+
+    public int getmMarketType() {
+        return mMarketType;
+    }
+
+    public void setmMarketType(int mMarketType) {
+        this.mMarketType = mMarketType;
+    }
 
     public String getmKeywords() {
         return mKeywords;

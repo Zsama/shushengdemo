@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@mipmap/bg_red"
-    tools:context=".ui.MissionDetailActivity">
+    android:background="@mipmap/bg_blue"
+    tools:context=".ui.MissionAdvDetailActivity">
 
     <include layout="@layout/layout_back_top_bar"></include>
     <ScrollView
@@ -99,88 +99,45 @@
                     android:layout_height="wrap_content" />
             </LinearLayout>
             <LinearLayout
+                android:padding="@dimen/dp_10"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:background="@mipmap/back_shadow_one"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <LinearLayout
-                    android:paddingBottom="@dimen/dp_10"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingTop="@dimen/dp_10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:textSize="@dimen/sp_15"
-                        android:text="下载后试玩应用"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:textSize="@dimen/sp_15"
-                        android:textColor="@color/colorRed"
-                        android:text="3分钟"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                android:layout_height="@dimen/dp_200">
+               <WebView
+
+                   android:layout_width="wrap_content"
+                   android:layout_height="@dimen/dp_200"></WebView>
 
 
 
-                </LinearLayout>
 
-                <TextView
-                    android:paddingBottom="@dimen/dp_5"
-                    android:gravity="center"
-
-                    android:background="@mipmap/btn_gray"
-                    android:id="@+id/tv_open"
-                    android:text="打开APP试玩"
-                    android:textSize="@dimen/sp_16"
-                    android:textColor="@color/colorWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
 
             </LinearLayout>
             <LinearLayout
-                android:gravity="center"
-                android:orientation="vertical"
-                android:background="@mipmap/back_shadow_one"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <LinearLayout
-                    android:paddingBottom="@dimen/dp_10"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/dp_10"
-                    android:paddingTop="@dimen/dp_10"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:textSize="@dimen/sp_15"
-                        android:text="下载后试玩应用"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:textSize="@dimen/sp_15"
-                        android:textColor="@color/colorRed"
-                        android:text="3分钟"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-
-
-                </LinearLayout>
-
-                <TextView
-                    android:paddingBottom="@dimen/dp_5"
-                    android:gravity="center"
-                    android:textColor="@color/colorWhite"
-                    android:background="@mipmap/btn_gray"
-                    android:id="@+id/tv_get"
-                    android:text="领取现金奖励"
-                    android:textSize="@dimen/sp_16"
+                <ImageView
+                    android:id="@+id/iv_camera"
+                    android:src="@mipmap/camera"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
+
             </LinearLayout>
+            <TextView
+                android:paddingBottom="@dimen/dp_5"
+                android:gravity="center"
+
+                android:background="@mipmap/download_btn"
+                android:id="@+id/ll_submit"
+                android:text="提交审核"
+                android:textSize="@dimen/sp_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
 
         </LinearLayout>

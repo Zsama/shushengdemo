@@ -6,6 +6,14 @@ import android.os.Environment;
 import java.io.File;
 
 public class Constant {
+    public static final int TX_MARKET=1;
+    public static final int MI_MARKET=2;
+    public static final int OPPO_MARKET=3;
+    public static final int HW_MARKET=4;
+    public static final int BAIDU_MARKET=5;
+    public static final int SANLIULING_MARKET=6;
+    public static final int DEMO_TIME=180000;
+
     /**
      * SharePreferences文件名
      */

@@ -9,6 +9,7 @@ import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -45,8 +46,8 @@ import java.util.Map;
 public class OrderFragment extends BaseFragment {
     private TwinklingRefreshLayout mRefreshLayout;
     private RecyclerView mOrderRV;
-    private RecyclerCommonAdapter<OrderBean> mOrderAdapter;
-    private List<OrderBean> mOrderList = new ArrayList<>();
+    private RecyclerCommonAdapter<ProductBean> mOrderAdapter;
+    private List<ProductBean> mOrderList = new ArrayList<>();
 
     private int mDataStatus = STATUS_REFRESH;
     private int mPage = 1;
@@ -55,12 +56,12 @@ public class OrderFragment extends BaseFragment {
 
     private int mType;
 
-    public static final int TYPE_ALL = 1; //全部
-    public static final int TYPE_WAIT_PAY = 2; //待支付
-    public static final int TYPE_WAIT_SEND= 3; //待发货
+    public static final int TYPE_ALL = -1; //全部
+    public static final int TYPE_WAIT_PAY = 0; //已接单
+    public static final int TYPE_WAIT_SEND= 1; //审核中
 
-    public static final int TYPE_WAIT_RECEIVE = 4;//待收货
-    public static final int TYPE_WAIT_EVALUATE = 5; //已完成
+    public static final int TYPE_WAIT_RECEIVE = 2;//已发奖
+    public static final int TYPE_WAIT_EVALUATE = 3; //已关闭
 
 
     private View mEmptyView;
@@ -122,10 +123,44 @@ public class OrderFragment extends BaseFragment {
     private void showDataRecycleView() {
 
         if (mOrderAdapter == null) {
-            mOrderAdapter = new RecyclerCommonAdapter<OrderBean>(mActivity, R.layout.item_order_list_product, mOrderList) {
+            mOrderAdapter = new RecyclerCommonAdapter<ProductBean>(mActivity, R.layout.item_order_product, mOrderList) {
                 @Override
-                protected void convert(ViewHolder holder, final OrderBean orderBean, int position) {
+                protected void convert(ViewHolder holder, final ProductBean productBean, int position) {
+                    final ImageView pictureIV = holder.getView(R.id.iv_item_star_main_product_picture);
+                    final LinearLayout ll_price = holder.getView(R.id.ll_price);
 
+                    Glide.with(mActivity).load(productBean.getPictureUrl()).asBitmap().placeholder(R.mipmap.logo).centerCrop().into(pictureIV);
+
+                    holder.setText(R.id.tv_title, productBean.getName());
+                    String status="审核中";
+                    switch (productBean.getChildOrderStatus()){
+                        case 0:
+                            status="进行中";
+                            ll_price.setVisibility(View.GONE);
+                            break;
+                        case 1:
+                            status="待审核";
+                            ll_price.setVisibility(View.GONE);
+                            break;
+                        case 2:
+                            status="已发奖";
+                            ll_price.setVisibility(View.VISIBLE);
+                            break;
+                        case 3:
+                            status="已过期";
+                            ll_price.setVisibility(View.GONE);
+                            break;
+                    }
+
+                    holder.setText(R.id.tv_status,status);
+                    holder.setText(R.id.tv_price,productBean.getPrice()+"");
+                    holder.getConvertView().setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+
+                        }
+                    });
 
                 }
             };
@@ -148,7 +183,14 @@ public class OrderFragment extends BaseFragment {
         if (AccountManager.sUserBean != null) {
             map.put("customer_id", AccountManager.sUserBean.getId());
         }
-        map.put("type", mType + "");
+        if (mType==-1){
+            map.put("status",  "");
+        }else {
+            map.put("status", mType + "");
+        }
+
+        map.put("page", mPage + "");
+        LogUtil.d(TAG,map.toString());
         RequestManager.mRetrofitManager
                 .createRequest(RetrofitRequestInterface.class)
                 .myOrder(RequestManager.encryptParams(map))
@@ -176,48 +218,16 @@ public class OrderFragment extends BaseFragment {
                                         mOrderList.clear();
                                         break;
                                 }
-//                                JSONObject data = response.getJSONObject("data");
                                 JSONArray orderArray = response.getJSONArray("data");
                                 for (int i = 0; i < orderArray.length(); i++) {
 
                                     JSONObject orderItem = orderArray.getJSONObject(i);
-                                    List<ProductBean> productList = new ArrayList<>();
-                                    OrderBean orderBean = new OrderBean();
-                                    //还有一个ID
-                                    orderBean.setOrderId(orderItem.getString("id"));
-                                    orderBean.setRealPrice(orderItem.getDouble("total_price"));
-//                                    orderBean.setPaymentMethod(orderItem.getInt("payment_id"));
+                                    ProductBean orderBean = new ProductBean();
+                                    orderBean.setPictureUrl(orderItem.getString("image"));
+                                    orderBean.setName(orderItem.getString("name"));
+                                    orderBean.setChildOrderStatus(orderItem.getInt("status"));
+                                    orderBean.setPrice(orderItem.getDouble("price"));
 
-                                    int  is_ship =orderItem.getInt("is_ship");//是否发货(1为已发货，0未发货)
-                                    int is_confirm_receipt=orderItem.getInt("is_confirm_receipt"); //是否确认签收(1为已确认收货，0待收货)
-                                    int status=0 ;
-                                    if (is_ship==0){
-                                        status=OrderBean.STATUS_WAIT_PAY;
-                                    }
-
-
-                                    orderBean.setStatus(status);
-
-                                    JSONArray contentArray = orderItem.getJSONArray("productlist");
-
-                                    for (int j = 0; j < contentArray.length(); j++) {
-
-                                            JSONObject productItem = contentArray.getJSONObject(j);
-                                            ProductBean productBean = new ProductBean();
-                                            productBean.setPictureUrl(productItem.getString("img_url"));
-                                            productBean.setId(productItem.getString("product_id"));
-                                            productBean.setSharePoint(productItem.getInt("integral_price"));
-                                            productBean.setName(productItem.getString("product_name"));
-                                            productBean.setPrice(productItem.getDouble("discount_price"));
-                                            productBean.setOriginPrice(productItem.getString("original_price"));
-                                            productBean.setSpec(productItem.getString("standard"));
-                                            productBean.setSeller(productItem.getString("brandname"));
-                                            productBean.setBuyNum(productItem.getInt("quantity"));
-
-
-                                        productList.add(productBean);
-                                    }
-                                    orderBean.setProductList(productList);
                                     mOrderList.add(orderBean);
                                 }
 

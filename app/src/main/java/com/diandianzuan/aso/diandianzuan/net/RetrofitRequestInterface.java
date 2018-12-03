@@ -44,6 +44,44 @@ public interface RetrofitRequestInterface {
     Call<String> myOrder(@FieldMap Map<String, String> params);
 
 
+    /*检查更新*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"CheckVersion")
+    Call<String> CheckVersion(@FieldMap Map<String, String> params);
+    /*高级任务提交审核*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"HighTestSubmit")
+    Call<String> HighTestSubmit(@FieldMap Map<String, String> params);
+    /*检查任务*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"CheckTest")
+    Call<String> CheckTest(@FieldMap Map<String, String> params);
+    /*提现申请*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"PutMoney")
+    Call<String> PutMoney(@FieldMap Map<String, String> params);
+    /*首页数据*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"GetHome")
+    Call<String> GetHome(@FieldMap Map<String, String> params);
+    /*收支明细*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"GetMyMoneyAllLogs")
+    Call<String> GetMyMoneyAllLogs(@FieldMap Map<String, String> params);
+    /*ChangeUserInfo*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"ChangeUserInfo")
+    Call<String> ChangeUserInfo(@FieldMap Map<String, String> params);
+
+
+
+
+
+
+
+
+
+
 
 
 

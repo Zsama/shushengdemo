@@ -147,7 +147,7 @@ public class UserBean implements Serializable {
     /**
      * 性别 1:男 2：女 3:保密
      */
-    private int mSex;
+    private int mSex=1;
     /**
      * 出生日期
      */

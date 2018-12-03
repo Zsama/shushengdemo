@@ -222,11 +222,8 @@ public class MillionActivity extends BaseActivity {
                 holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mType==0){
-                            MissionDetailActivity.startMe(mActivity, productBean.getId(), mType, productBean.getmKeywords());
-                        }else {
-                            MissionAdvDetailActivity.startMe(mActivity, productBean.getId(), mType, productBean.getmKeywords());
-                        }
+                        CheckTest(productBean.getId(), mType, productBean.getmKeywords());
+
 
 
                     }
@@ -256,5 +253,59 @@ public class MillionActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
+    }
+    /**
+     * 检查任务
+     */
+    private void CheckTest(final String post_id, final int mType, final String keyword) {
+        Map<String, String> map = new HashMap<>();
+        if (AccountManager.sUserBean != null) {
+            map.put("customer_id", AccountManager.sUserBean.getId());
+
+        }
+        map.put("post_id", post_id);
+        LogUtil.e(TAG, map.toString());
+        RequestManager.mRetrofitManager
+                .createRequest(RetrofitRequestInterface.class)
+                .CheckTest(RequestManager.encryptParams(map))
+                .enqueue(new RetrofitCallBack() {
+
+                    @Override
+                    public void onSuccess(String response) {
+                        LogUtil.e(TAG, response);
+                        DialogUtil.hideProgress();
+                        try {
+                            JSONObject res = new JSONObject(response);
+                            int code = res.getInt("code");
+                            String info = res.getString("info");
+
+                            if (code == 0) {
+                                if (mType==0){
+                                    MissionDetailActivity.startMe(mActivity, post_id, mType, keyword);
+                                }else {
+                                    MissionAdvDetailActivity.startMe(mActivity, post_id, mType, keyword);
+                                }
+                            }else {
+                                ToastUtil.showShort(mActivity,info);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            ToastUtil.showShort(mActivity, "数据异常");
+                            LogUtil.e(TAG, e.getMessage());
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        if (!NetworkUtil.isConnected()) {
+                            ToastUtil.showShort(mActivity, "网络未连接");
+                        } else {
+                            ToastUtil.showShort(mActivity, getString(R.string.network_error));
+                        }
+                    }
+                });
+
+
     }
 }

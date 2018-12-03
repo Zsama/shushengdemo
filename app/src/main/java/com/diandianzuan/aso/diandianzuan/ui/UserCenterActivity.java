@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.diandianzuan.aso.diandianzuan.R;
 import com.diandianzuan.aso.diandianzuan.base.BaseActivity;
 import com.diandianzuan.aso.diandianzuan.global.Constant;
@@ -31,6 +32,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class UserCenterActivity extends BaseActivity {
     @BindView(R.id.tv_layout_back_top_bar_title)
@@ -76,6 +78,16 @@ public class UserCenterActivity extends BaseActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            getUserInfo();
+        }catch (Exception e){
+
+        }
+    }
+
+    @Override
     public void initEvent() {
         mTvExit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +126,7 @@ public class UserCenterActivity extends BaseActivity {
 
     @OnClick(R.id.tv_nicename)
     public void onTvNicenameClicked() {
+        startActivity(new Intent(mActivity,PersonInfoActivity.class));
     }
 
     @OnClick(R.id.ll_tixian)
@@ -123,6 +136,7 @@ public class UserCenterActivity extends BaseActivity {
 
     @OnClick(R.id.ll_cash_detail)
     public void onLlCashDetailClicked() {
+        PayRecordActivity.startMe(mActivity);
     }
 
     @OnClick(R.id.ll_order_record)
@@ -207,9 +221,19 @@ public class UserCenterActivity extends BaseActivity {
 
     }
     private void setUserInfo(){
+
+        Glide.with(mActivity)
+                .load(AccountManager.sUserBean.getHeadPortrait())
+                .bitmapTransform(new CropCircleTransformation(mActivity))
+                .into(ivAvatar);
+
+//        Glide.with(mActivity)
+//                .load(AccountManager.sUserBean.getHeadPortrait())
+//                .bitmapTransform(new CropCircleTransformation(mActivity))
+//                .into(ivAvatar);
         tvMoney.setText(AccountManager.sUserBean.getEmoney());
         tvNicename.setText(AccountManager.sUserBean.getNickName());
-        tvId.setText(AccountManager.sUserBean.getId());
+        tvId.setText("ID:"+AccountManager.sUserBean.getId());
     }
 
 

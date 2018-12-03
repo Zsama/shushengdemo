@@ -36,5 +36,5 @@ public class Constant {
     /**
      * SDCard文件夹
      */
-    public static final String SDCARD_PATH = SDCARD_ROOT_PATH + File.separator + "you_you_mei";
+    public static final String SDCARD_PATH = SDCARD_ROOT_PATH + File.separator + "shushengdemo";
 }

@@ -1,12 +1,16 @@
 package com.diandianzuan.aso.diandianzuan.ui;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.diandianzuan.aso.diandianzuan.BuildConfig;
 import com.diandianzuan.aso.diandianzuan.R;
 import com.diandianzuan.aso.diandianzuan.base.BaseActivity;
 import com.diandianzuan.aso.diandianzuan.global.Constant;
@@ -30,6 +34,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
@@ -74,7 +79,8 @@ public class MainActivity extends BaseActivity {
                 UserCenterActivity.startMe(mActivity);
             }
         });
-
+        checkVersion();
+        GetHome();
 
     }
 
@@ -184,6 +190,15 @@ public class MainActivity extends BaseActivity {
     }
     private void setUserInfo(){
         try {
+            Glide.with(mActivity)
+                    .load(AccountManager.sUserBean.getHeadPortrait())
+                    .bitmapTransform(new CropCircleTransformation(mActivity)).placeholder(R.mipmap.center)
+                    .into(ivAvatar);
+//            Glide.with(mActivity).load(AccountManager.sUserBean.getHeadPortrait()).asBitmap().placeholder(R.mipmap.logo).centerCrop().into(ivAvatar);
+//            Glide.with(mActivity)
+//                    .load(AccountManager.sUserBean.getHeadPortrait())
+//                    .bitmapTransform(new CropCircleTransformation(mActivity))
+//                    .into(ivAvatar);
             tvMoney.setText(AccountManager.sUserBean.getEmoney());
             tvDescribe.setText("今日收益："+AccountManager.sUserBean.getToday_money()+"  累计收益："+AccountManager.sUserBean.getTotal_money());
         }catch (Exception e){
@@ -193,4 +208,95 @@ public class MainActivity extends BaseActivity {
 
     }
 
+
+    private void checkVersion() {
+        Map<String, String> map = new HashMap<>();
+
+        RequestManager.mRetrofitManager
+                .createRequest(RetrofitRequestInterface.class)
+                .CheckVersion(RequestManager.encryptParams(map))
+                .enqueue(new RetrofitCallBack() {
+
+                    @Override
+                    public void onSuccess(String response) {
+                        LogUtil.e(TAG, response);
+                        DialogUtil.hideProgress();
+                        try {
+                            JSONObject res = new JSONObject(response);
+                            int code = res.getInt("code");
+                            int version = res.getInt("version");
+                            if (version> BuildConfig.VERSION_CODE){
+                                ToastUtil.showShort(mActivity,"发现新版本前往下载！");
+                                Intent intent= new Intent();
+                                intent.setAction("android.intent.action.VIEW");
+                                Uri content_url = Uri.parse(res.getString("data"));
+                                intent.setData(content_url);
+                                startActivity(intent);
+                                finish();
+
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            ToastUtil.showShort(mActivity, "数据异常");
+                            LogUtil.e(TAG, e.getMessage());
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        if (!NetworkUtil.isConnected()) {
+                            ToastUtil.showShort(mActivity, "网络未连接");
+                        } else {
+                            ToastUtil.showShort(mActivity, getString(R.string.network_error));
+                        }
+                    }
+                });
+
+
+
+
+
+    }
+    private void GetHome() {
+        Map<String, String> map = new HashMap<>();
+
+        RequestManager.mRetrofitManager
+                .createRequest(RetrofitRequestInterface.class)
+                .GetHome(RequestManager.encryptParams(map))
+                .enqueue(new RetrofitCallBack() {
+
+                    @Override
+                    public void onSuccess(String response) {
+                        LogUtil.e(TAG, response);
+                        DialogUtil.hideProgress();
+                        try {
+                            JSONObject res = new JSONObject(response);
+                            int code = res.getInt("code");
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            ToastUtil.showShort(mActivity, "数据异常");
+                            LogUtil.e(TAG, e.getMessage());
+                        }
+
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        if (!NetworkUtil.isConnected()) {
+                            ToastUtil.showShort(mActivity, "网络未连接");
+                        } else {
+                            ToastUtil.showShort(mActivity, getString(R.string.network_error));
+                        }
+                    }
+                });
+
+
+
+
+
+    }
 }

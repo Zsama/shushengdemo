@@ -217,6 +217,11 @@ public class MillionActivity extends BaseActivity {
                         holder.setText(R.id.tv_mall, "360手机助手");
                         iv_mall_icon.setImageResource(R.mipmap.sanliuling);
                         break;
+
+                    case Constant.VIVO_MARKET:
+                        holder.setText(R.id.tv_mall, "VIVO应用市场");
+                        iv_mall_icon.setImageResource(R.mipmap.vivo);
+                        break;
                 }
 
                 holder.getConvertView().setOnClickListener(new View.OnClickListener() {

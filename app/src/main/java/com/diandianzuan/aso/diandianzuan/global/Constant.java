@@ -12,6 +12,7 @@ public class Constant {
     public static final int HW_MARKET=4;
     public static final int BAIDU_MARKET=5;
     public static final int SANLIULING_MARKET=6;
+    public static final int VIVO_MARKET=7;
     public static final int DEMO_TIME=180000;
 
     /**

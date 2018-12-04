@@ -81,6 +81,8 @@ public class MissionAdvDetailActivity extends BaseActivity {
     TextView llSubmit;
     @BindView(R.id.wv_web)
     WebView wvWeb;
+    @BindView(R.id.iv_logo)
+    ImageView ivLogo;
 
     private String mKeywords = "";
     private String mId = "";
@@ -175,7 +177,8 @@ public class MissionAdvDetailActivity extends BaseActivity {
                                 JSONObject data = res.getJSONObject("data");
                                 bundled = data.getString("bundled");
                                 mTvPrice.setText("+" + data.getString("price") + "元");
-
+                                String image = data.getString("image");
+                                Glide.with(mActivity).load(image).asBitmap().placeholder(R.mipmap.logo).centerCrop().into(ivLogo);
                                 JSONObject join = data.getJSONObject("join");
                                 join_id = join.getString("join_id");
                                 String wvdata = data.getString("info");
@@ -183,8 +186,8 @@ public class MissionAdvDetailActivity extends BaseActivity {
                                 customHtml = replace("&gt;", ">", customHtml);
                                 customHtml = replace("&quot;", "\"", customHtml);
                                 customHtml = replace("&amp;nbsp;", "  ", customHtml);
-                                customHtml=replace(".jpg\"/>",".jpg\" style=\"max-width:100%;height:auto\"/>",customHtml);
-                                customHtml=replace(".png\"/>",".png\" style=\"max-width:100%;height:auto\"/>",customHtml);
+                                customHtml = replace(".jpg\"/>", ".jpg\" style=\"max-width:100%;height:auto\"/>", customHtml);
+                                customHtml = replace(".png\"/>", ".png\" style=\"max-width:100%;height:auto\"/>", customHtml);
 
                                 wvWeb.loadDataWithBaseURL(null, customHtml, "text/html", "utf-8", null);
                                 int platform2 = data.getInt("platform2");
@@ -212,6 +215,10 @@ public class MissionAdvDetailActivity extends BaseActivity {
                                     case Constant.SANLIULING_MARKET:
                                         mTvMallName.setText("360手机助手");
                                         market_pkg_name = "com.qihoo.appstore";
+                                        break;
+                                    case Constant.VIVO_MARKET:
+                                        mTvMallName.setText("VIVO应用市场");
+                                        market_pkg_name = "com.bbk.appstore";
                                         break;
                                 }
                             }
@@ -309,12 +316,6 @@ public class MissionAdvDetailActivity extends BaseActivity {
         return packageInfo != null;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 
     @OnClick(R.id.iv_camera)
     public void onIvCameraClicked() {
@@ -527,6 +528,7 @@ public class MissionAdvDetailActivity extends BaseActivity {
 
 
     }
+
     public static String replace(String from, String to, String source) {
         if (source == null || from == null || to == null)
             return null;

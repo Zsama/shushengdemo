@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.ActDetailActivity">
+    <include layout="@layout/layout_back_top_bar"></include>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <WebView
+            android:id="@+id/wv_web"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></WebView>
+        <TextView
+            android:text="前往下载"
+            android:layout_marginBottom="@dimen/dp_10"
+           android:layout_centerHorizontal="true"
+            android:paddingBottom="@dimen/dp_5"
+            android:textSize="@dimen/sp_16"
+            android:gravity="center"
+
+            android:background="@mipmap/download_btn"
+            android:layout_alignParentBottom="true"
+                android:id="@+id/tv_goto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

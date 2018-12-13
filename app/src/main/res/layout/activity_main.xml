@@ -216,4 +216,24 @@
             android:layout_height="wrap_content"/>
 
     </RelativeLayout>
+    <com.diandianzuan.aso.diandianzuan.widget.BannerLayout
+        android:paddingTop="@dimen/dp_10"
+        android:paddingLeft="@dimen/dp_10"
+        android:paddingRight="@dimen/dp_10"
+        android:id="@+id/bl_fragment_homepage"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_120"
+        app:autoPlayDuration="5000"
+        app:indicatorMargin="@dimen/dp_10"
+        app:indicatorPosition="centerBottom"
+        app:indicatorShape="oval"
+        app:indicatorSpace="@dimen/dp_3"
+        app:scrollDuration="1100"
+        app:selectedIndicatorColor="@color/colorBlack"
+        app:selectedIndicatorHeight="@dimen/dp_5"
+        app:selectedIndicatorWidth="@dimen/dp_5"
+        app:unSelectedIndicatorColor="@color/colorWhite"
+        app:unSelectedIndicatorHeight="@dimen/dp_5"
+        app:unSelectedIndicatorWidth="@dimen/dp_5"
+        />
 </LinearLayout>

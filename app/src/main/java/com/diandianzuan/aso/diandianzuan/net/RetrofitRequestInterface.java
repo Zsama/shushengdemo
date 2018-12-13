@@ -72,6 +72,10 @@ public interface RetrofitRequestInterface {
     @FormUrlEncoded
     @POST(RequestManager.mInterfacePrefix+"ChangeUserInfo")
     Call<String> ChangeUserInfo(@FieldMap Map<String, String> params);
+    /*GetDiscountDetail*/
+    @FormUrlEncoded
+    @POST(RequestManager.mInterfacePrefix+"GetDiscountDetail")
+    Call<String> GetDiscountDetail(@FieldMap Map<String, String> params);
 
 
 

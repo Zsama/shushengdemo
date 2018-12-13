@@ -105,11 +105,12 @@
                 android:orientation="vertical"
                 android:background="@mipmap/back_shadow_one"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_200">
+                android:layout_weight="1"
+                android:layout_height="@dimen/dp_0">
                <WebView
                     android:id="@+id/wv_web"
                    android:layout_width="wrap_content"
-                   android:layout_height="@dimen/dp_200"></WebView>
+                   android:layout_height="wrap_content"></WebView>
 
 
 

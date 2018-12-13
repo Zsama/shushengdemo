@@ -2,7 +2,6 @@ package com.diandianzuan.aso.diandianzuan.ui;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,6 +12,7 @@ import com.bumptech.glide.Glide;
 import com.diandianzuan.aso.diandianzuan.BuildConfig;
 import com.diandianzuan.aso.diandianzuan.R;
 import com.diandianzuan.aso.diandianzuan.base.BaseActivity;
+import com.diandianzuan.aso.diandianzuan.bean.BannerItemBean;
 import com.diandianzuan.aso.diandianzuan.global.Constant;
 import com.diandianzuan.aso.diandianzuan.manager.AccountManager;
 import com.diandianzuan.aso.diandianzuan.manager.RequestManager;
@@ -24,11 +24,15 @@ import com.diandianzuan.aso.diandianzuan.util.LogUtil;
 import com.diandianzuan.aso.diandianzuan.util.NetworkUtil;
 import com.diandianzuan.aso.diandianzuan.util.SPUtil;
 import com.diandianzuan.aso.diandianzuan.util.ToastUtil;
+import com.diandianzuan.aso.diandianzuan.widget.BannerLayout;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -52,7 +56,10 @@ public class MainActivity extends BaseActivity {
     LinearLayout llAdv;
     @BindView(R.id.tv_describe)
     TextView tvDescribe;
-
+    @BindView(R.id.bl_fragment_homepage)
+    BannerLayout mBannerLayout;
+    private List<String> mBannerImageList = new ArrayList<>();
+    private List<BannerItemBean> mBannerItemList = new ArrayList<>();
     @Override
     protected int getContentViewId() {
         return R.layout.activity_main;
@@ -66,7 +73,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initData() {
-      setUserInfo();
+        setUserInfo();
 
     }
 
@@ -83,13 +90,28 @@ public class MainActivity extends BaseActivity {
         GetHome();
 
     }
+    /**
+     * 显示
+     */
+    private void showBanner() {
+        mBannerLayout.setViewUrls(mBannerImageList);
 
+        mBannerLayout.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                Intent intent=new Intent(mActivity,ActDetailActivity.class);
+                intent.putExtra("id",mBannerItemList.get(position).getProductId());
+                startActivity(intent);
+            }
+        });
+    }
     @Override
     protected void onResume() {
         super.onResume();
         try {
             getUserInfo();
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
@@ -114,7 +136,6 @@ public class MainActivity extends BaseActivity {
     public void onLlAdvClicked() {
         MillionActivity.startMe(mActivity, 1);
     }
-
 
 
     /**
@@ -159,7 +180,6 @@ public class MainActivity extends BaseActivity {
                                 AccountManager.sUserBean.setTotal_money(data.getString("total_money"));
 
 
-
                                 String base64 = CommonUtil.objectToBase64(AccountManager.sUserBean);
                                 SPUtil.put(Constant.USER, base64);
                                 setUserInfo();
@@ -184,11 +204,9 @@ public class MainActivity extends BaseActivity {
                 });
 
 
-
-
-
     }
-    private void setUserInfo(){
+
+    private void setUserInfo() {
         try {
             Glide.with(mActivity)
                     .load(AccountManager.sUserBean.getHeadPortrait())
@@ -200,8 +218,8 @@ public class MainActivity extends BaseActivity {
 //                    .bitmapTransform(new CropCircleTransformation(mActivity))
 //                    .into(ivAvatar);
             tvMoney.setText(AccountManager.sUserBean.getEmoney());
-            tvDescribe.setText("今日收益："+AccountManager.sUserBean.getToday_money()+"  累计收益："+AccountManager.sUserBean.getTotal_money());
-        }catch (Exception e){
+            tvDescribe.setText("今日收益：" + AccountManager.sUserBean.getToday_money() + "  累计收益：" + AccountManager.sUserBean.getTotal_money());
+        } catch (Exception e) {
 
         }
 
@@ -225,9 +243,9 @@ public class MainActivity extends BaseActivity {
                             JSONObject res = new JSONObject(response);
                             int code = res.getInt("code");
                             int version = res.getInt("version");
-                            if (version> BuildConfig.VERSION_CODE){
-                                ToastUtil.showShort(mActivity,"发现新版本前往下载！");
-                                Intent intent= new Intent();
+                            if (version > BuildConfig.VERSION_CODE) {
+                                ToastUtil.showShort(mActivity, "发现新版本前往下载！");
+                                Intent intent = new Intent();
                                 intent.setAction("android.intent.action.VIEW");
                                 Uri content_url = Uri.parse(res.getString("data"));
                                 intent.setData(content_url);
@@ -255,10 +273,8 @@ public class MainActivity extends BaseActivity {
                 });
 
 
-
-
-
     }
+
     private void GetHome() {
         Map<String, String> map = new HashMap<>();
 
@@ -274,8 +290,19 @@ public class MainActivity extends BaseActivity {
                         try {
                             JSONObject res = new JSONObject(response);
                             int code = res.getInt("code");
+                            JSONObject data=res.getJSONObject("data");
+                            JSONArray BussinessData=data.getJSONArray("discount");
+                            for (int i = 0; i < BussinessData.length(); i++) {
+                                JSONObject item = BussinessData.getJSONObject(i);
+                                BannerItemBean bannerItemBean = new BannerItemBean();
+                                bannerItemBean.setProductId(item.getString("id"));
 
+                                bannerItemBean.setImageUrl( item.getString("image"));
+                                mBannerImageList.add(item.getString("image"));
+                                mBannerItemList.add(bannerItemBean);
+                            }
 
+                            showBanner();
                         } catch (JSONException e) {
                             e.printStackTrace();
                             ToastUtil.showShort(mActivity, "数据异常");
@@ -295,8 +322,12 @@ public class MainActivity extends BaseActivity {
                 });
 
 
+    }
 
-
-
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

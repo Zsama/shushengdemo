@@ -25,6 +25,7 @@ import com.diandianzuan.aso.diandianzuan.util.DialogUtil;
 import com.diandianzuan.aso.diandianzuan.util.LogUtil;
 import com.diandianzuan.aso.diandianzuan.util.NetworkUtil;
 import com.diandianzuan.aso.diandianzuan.util.ToastUtil;
+import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 
 import org.json.JSONArray;
@@ -65,7 +66,6 @@ public class MillionActivity extends BaseActivity {
     private static final int STATUS_LOAD = 2;
     private RecyclerCommonAdapter<ProductBean> mStarMainAdapter;
     private List<ProductBean> mDataList = new ArrayList<>();
-
     @Override
     protected int getContentViewId() {
         return R.layout.activity_million;
@@ -95,6 +95,21 @@ public class MillionActivity extends BaseActivity {
     @Override
     public void initEvent() {
         getList();
+        trlActivityMillion.setOnRefreshListener(new RefreshListenerAdapter() {
+            @Override
+            public void onRefresh(TwinklingRefreshLayout refreshLayout) {
+                mDataStatus = STATUS_REFRESH;
+                mPage = 1;
+                getList();
+            }
+
+            @Override
+            public void onLoadMore(TwinklingRefreshLayout refreshLayout) {
+                mDataStatus = STATUS_LOAD;
+                mPage++;
+                getList();
+            }
+        });
     }
 
     @Override
@@ -116,7 +131,7 @@ public class MillionActivity extends BaseActivity {
             map.put("customer_id", AccountManager.sUserBean.getId());
 
         }
-        map.put("page", "1");
+        map.put("page", mPage+"");
         map.put("type", mType + "");
         map.put("platform", "2");
         LogUtil.e(TAG, map.toString());
@@ -129,12 +144,25 @@ public class MillionActivity extends BaseActivity {
                     public void onSuccess(String response) {
                         LogUtil.e(TAG, response);
                         DialogUtil.hideProgress();
+                        switch (mDataStatus) {
+                            case STATUS_REFRESH:
+                                trlActivityMillion.finishRefreshing();
+                                break;
+                            case STATUS_LOAD:
+                                trlActivityMillion.finishLoadmore();
+                                break;
+                        }
                         try {
                             JSONObject res = new JSONObject(response);
                             int code = res.getInt("code");
                             String info = res.getString("info");
                             if (code == 0) {
-                                mDataList.clear();
+                                switch (mDataStatus) {
+                                    case STATUS_REFRESH:
+                                        mDataList.clear();
+                                        break;
+                                }
+
                                 JSONArray jsonArrayData = res.getJSONArray("data");
                                 for (int i = 0; i < jsonArrayData.length(); i++) {
                                     JSONObject object = jsonArrayData.getJSONObject(i);

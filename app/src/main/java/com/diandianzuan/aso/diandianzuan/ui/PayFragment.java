@@ -63,7 +63,7 @@ public class PayFragment extends BaseFragment {
     @Override
     public void initView() {
         mRefreshLayout = byId(R.id.tfl_fragment_order);
-        setRefreshStyle();
+//        setRefreshStyle();
         mOrderRV = byId(R.id.rv_fragment_order);
 
         mEmptyView = byId(R.id.layout_order_empty);

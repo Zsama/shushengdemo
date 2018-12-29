@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -69,7 +70,7 @@ public class MissionDetailActivity extends BaseActivity {
     private boolean ifHaveTime = false;
     private String market_pkg_name = "com.tencent.android.qqdownloader";
     private String join_id = "";
-
+    private CountDownTimer mTimer;
     @Override
     protected int getContentViewId() {
         return R.layout.activity_mission_detail;
@@ -87,7 +88,24 @@ public class MissionDetailActivity extends BaseActivity {
         mKeywords = intent.getStringExtra("keywords");
         mId = intent.getStringExtra("projectId");
         mTvWords.setText("关键词：" + mKeywords);
+        mTimer = new CountDownTimer(30 * 1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (!bundled.equals("")) {
+                    ifHavePkg = checkPackInfo(bundled);
+                    LogUtil.d(TAG,"定时ONresume检查"+millisUntilFinished+ifHavePkg);
+                    refreshView();
+                    mTimer.cancel();
 
+
+                }
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
     }
 
     @Override
@@ -231,6 +249,9 @@ public class MissionDetailActivity extends BaseActivity {
                                         market_pkg_name = "com.bbk.appstore";
                                         break;
                                 }
+                                ifHavePkg = checkPackInfo(bundled);
+                                LogUtil.d(TAG,"接口检查"+ifHavePkg);
+                                refreshView();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -329,12 +350,21 @@ public class MissionDetailActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!bundled.equals("")) {
-            ifHavePkg = checkPackInfo(bundled);
-            refreshView();
 
+        try {
+            if (!bundled.equals("")) {
+                ifHavePkg = checkPackInfo(bundled);
+                LogUtil.d(TAG,"第一次ONresume检查"+ifHavePkg);
+                refreshView();
+                if (!ifHavePkg){
+                    mTimer.start();
+                }
 
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
     }
 
     /**

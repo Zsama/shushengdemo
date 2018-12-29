@@ -3,6 +3,7 @@ package com.diandianzuan.aso.diandianzuan.ui;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
@@ -61,6 +62,8 @@ public class ActDetailActivity extends BaseActivity {
     public void initData() {
         Intent intent=getIntent();
         mId=intent.getStringExtra("id");
+
+
 
     }
 

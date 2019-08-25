@@ -6,8 +6,8 @@ android {
         applicationId "com.diandianzuan.aso.diandianzuan"
         minSdkVersion 22
         targetSdkVersion 27
-        versionCode 6
-        versionName "1.0.0.6"
+        versionCode 36
+        versionName "2.0.36.109"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

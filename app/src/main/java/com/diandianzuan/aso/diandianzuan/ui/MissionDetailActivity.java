@@ -6,6 +6,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -62,6 +63,10 @@ public class MissionDetailActivity extends BaseActivity {
     TextView mTvGet;
     @BindView(R.id.iv_logo)
     ImageView ivLogo;
+    @BindView(R.id.tv_hint)
+    TextView mTvHint;
+    @BindView(R.id.tv_hint_step3)
+    TextView mTvHintStep3;
     private String mKeywords = "";
     private String mId = "";
     private String bundled = "";
@@ -106,6 +111,7 @@ public class MissionDetailActivity extends BaseActivity {
 
             }
         };
+
     }
 
     @Override
@@ -213,6 +219,9 @@ public class MissionDetailActivity extends BaseActivity {
                             if (code == 0) {
                                 JSONObject data = res.getJSONObject("data");
                                 bundled = data.getString("bundled");
+
+
+
                                 mTvPrice.setText("+" + data.getString("price") + "元");
                                 String image=data.getString("image");
                                 Glide.with(mActivity).load(image).asBitmap().placeholder(R.mipmap.logo).centerCrop().into(ivLogo);
@@ -325,6 +334,12 @@ public class MissionDetailActivity extends BaseActivity {
     }
 
     private void refreshView() {
+
+        if (bundled.contains("cpa")){
+            mTvHint.setVisibility(View.VISIBLE);
+            mTvHintStep3.setText("下载后打开应用等待");
+        }
+
         if (ifHavePkg) {
             mTvOpen.setBackgroundResource(R.mipmap.download_btn);
             mTvOpen.setTextColor(getResources().getColor(R.color.colorBlack));

@@ -2,6 +2,8 @@ package com.diandianzuan.aso.diandianzuan.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -87,7 +89,7 @@ public class MillionActivity extends BaseActivity {
             tvDescribeTop.setText("①按要求完成-②截图审核-③奖励到账");
         } else {
             tvLayoutBackTopBarTitle.setText("快速任务");
-            tvDescribeTop.setText("①下载应用-②试玩3分钟-③领取奖励");
+            tvDescribeTop.setText("①下载应用-②打开3分钟-③领取奖励");
         }
 
     }
@@ -174,6 +176,7 @@ public class MillionActivity extends BaseActivity {
                                     productBean.setPictureUrl(object.getString("image"));
                                     productBean.setPrice(object.getDouble("price"));
                                     productBean.setmMarketType(object.getInt("platform2"));
+                                    productBean.setPkgName(object.getString("bundled"));
                                     mDataList.add(productBean);
 
                                 }
@@ -216,7 +219,8 @@ public class MillionActivity extends BaseActivity {
                 Glide.with(mActivity).load(productBean.getPictureUrl()).asBitmap().placeholder(R.mipmap.logo).centerCrop().into(pictureIV);
 
                 holder.setText(R.id.tv_title, productBean.getmKeywords());
-                holder.setText(R.id.tv_describe, "剩余" + productBean.getmKucun() + "份");
+//                holder.setText(R.id.tv_describe, "剩余" + productBean.getmKucun() + "份");
+                holder.setText(R.id.tv_describe, "剩余100+");
                 holder.setText(R.id.tv_price, productBean.getPrice() + "");
                 int platform2 = productBean.getmMarketType();
 
@@ -255,7 +259,7 @@ public class MillionActivity extends BaseActivity {
                 holder.getConvertView().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        CheckTest(productBean.getId(), mType, productBean.getmKeywords());
+                        CheckTest(productBean.getId(), mType, productBean.getmKeywords(),productBean.getPkglName());
 
 
 
@@ -290,7 +294,7 @@ public class MillionActivity extends BaseActivity {
     /**
      * 检查任务
      */
-    private void CheckTest(final String post_id, final int mType, final String keyword) {
+    private void CheckTest(final String post_id, final int mType, final String keyword,final String pkgname) {
         Map<String, String> map = new HashMap<>();
         if (AccountManager.sUserBean != null) {
             map.put("customer_id", AccountManager.sUserBean.getId());
@@ -314,7 +318,13 @@ public class MillionActivity extends BaseActivity {
 
                             if (code == 0) {
                                 if (mType==0){
-                                    MissionDetailActivity.startMe(mActivity, post_id, mType, keyword);
+                                   if( !checkPackInfo(pkgname)){
+                                       MissionDetailActivity.startMe(mActivity, post_id, mType, keyword);
+                                   }else {
+                                       ToastUtil.showShort(mActivity,"已安装该应用！");
+                                   }
+
+
                                 }else {
                                     MissionAdvDetailActivity.startMe(mActivity, post_id, mType, keyword);
                                 }
@@ -340,5 +350,20 @@ public class MillionActivity extends BaseActivity {
                 });
 
 
+    }
+    /**
+     * 检查包是否存在
+     *
+     * @param packname
+     * @return
+     */
+    private boolean checkPackInfo(String packname) {
+        PackageInfo packageInfo = null;
+        try {
+            packageInfo = getPackageManager().getPackageInfo(packname, 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return packageInfo != null;
     }
 }

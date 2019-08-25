@@ -59,7 +59,7 @@
 <TextView
     android:id="@+id/tv_start"
     android:gravity="center"
-    android:layout_width="@dimen/dp_100"
+    android:layout_width="@dimen/dp_110"
     android:layout_height="@dimen/dp_30"
     android:text="立即开启"
     android:background="@mipmap/btn_yellow"
@@ -70,6 +70,14 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_0"/>
 
+    <TextView
+        android:id="@+id/tv_version"
+        android:textColor="@color/colorGrayLine"
+        android:paddingBottom="@dimen/dp_10"
+        android:textSize="@dimen/sp_15"
+        android:text="v1.0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
 
 

@@ -97,11 +97,11 @@ public class ProductBean implements Serializable {
     private String mIdCommon;
     private String mHospitalName;
 
-    public String getHospitalName() {
+    public String getPkglName() {
         return mHospitalName;
     }
 
-    public void setHospitalName(String hospitalName) {
+    public void setPkgName(String hospitalName) {
         mHospitalName = hospitalName;
     }
 

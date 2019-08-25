@@ -162,8 +162,11 @@ public class MainActivity extends BaseActivity {
                             if (code == 0) {
                                 JSONObject data = res.getJSONObject("data");
 
-
-                                AccountManager.sUserBean.setNickName(data.getString("nicename"));
+                                String nicename=data.getString("nicename");
+                                if (nicename.contains("用户")){
+                                    nicename="试玩新手";
+                                }
+                                AccountManager.sUserBean.setNickName(nicename);
                                 AccountManager.sUserBean.setHeadPortrait(data.getString("avatar"));
 
                                 AccountManager.sUserBean.setSex(data.getInt("sex"));

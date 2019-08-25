@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:textSize="@dimen/sp_15"
-                        android:text="下载后试玩应用"
+                        android:text="下载后打开应用"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                     <TextView
@@ -127,14 +127,22 @@
 
 
                 </LinearLayout>
-
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/tv_hint"
+                    android:paddingBottom="@dimen/dp_5"
+                    android:layout_marginTop="-5dp"
+                    android:textSize="@dimen/sp_15"
+                    android:text="登陆后不要使用任何功能"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
                 <TextView
                     android:paddingBottom="@dimen/dp_5"
                     android:gravity="center"
 
                     android:background="@mipmap/btn_gray"
                     android:id="@+id/tv_open"
-                    android:text="打开APP试玩"
+                    android:text="打开APP三分钟"
                     android:textSize="@dimen/sp_16"
                     android:textColor="@color/colorWhite"
                     android:layout_width="wrap_content"
@@ -155,6 +163,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <TextView
+                        android:id="@+id/tv_hint_step3"
                         android:textSize="@dimen/sp_15"
                         android:text="下载后试玩应用"
                         android:layout_width="wrap_content"
